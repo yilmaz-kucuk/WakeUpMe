@@ -15,9 +15,12 @@ public String number = "05";
 public String number2 = "+90";
 private Context mContext = null;
 private AudioManager audioManager;
-private Handler mHandler = null;
+private Handler mHandler;
 
 public static final int RECEIVED_CALL = 99;
+
+private static final int INCOMING_CALL_STARTED = 1;
+private static final int INCOMING_CALL_ENDED   = 0;
 
 public  IncomingCall(Context mContext, Handler handler){
 this.mContext = mContext;
@@ -40,8 +43,8 @@ audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
 
     private class MyPhoneStateListener extends PhoneStateListener {
         public void onCallStateChanged(int state, String incomingNumber) {
-            Log.d("MyPhoneListener",state+"   incoming no:"+incomingNumber);
-            if (state == 1) {
+            Log.d("MyPhoneListener",state+"   incoming no:" + incomingNumber);
+            if (state == INCOMING_CALL_STARTED) {
                 mHandler.obtainMessage(RECEIVED_CALL, (Object)incomingNumber).sendToTarget();
                 if(incomingNumber.trim().equals(number) || incomingNumber.trim().equals(number2)){
                     audioManager.setStreamVolume(AudioManager.STREAM_RING,audioManager.getStreamMaxVolume(AudioManager.STREAM_RING), 0);
