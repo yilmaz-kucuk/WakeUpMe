@@ -37,7 +37,7 @@ audioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
             // Register listener for LISTEN_CALL_STATE
             tmgr.listen(PhoneListener, PhoneStateListener.LISTEN_CALL_STATE);
         } catch (Exception e) {
-            Log.e("Phone Receive Error", " " + e);
+            Log.e("ERROR", String.valueOf(e));
         }
     }
 
